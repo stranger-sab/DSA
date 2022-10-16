@@ -1,0 +1,227 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+int size = 0; int i;
+
+//void swap(int*,int*);
+
+//void heapify(int[], int, int);
+
+//void insert(int[], int);
+
+//void deleteRoot(int[]);
+
+//void printArray(int[], int);
+
+
+void heapify(int array[], int size, int i)
+
+{
+
+ if (size == 1)
+
+ {
+
+ printf("Single element in the heap");
+
+ }
+
+ else
+
+ {
+
+ int sm = i;
+
+ int l = 2 * i + 1;
+
+ int r = 2 * i + 2;
+
+ if (l < size && array[l] < array[sm])
+
+ sm= l;
+
+ if (r < size && array[r] < array[sm])
+
+ sm = r;
+
+ if (sm != i)
+
+ {
+
+ swap(&array[sm], &array[i]);
+
+ heapify(array, size, sm);
+
+ }
+
+ }
+
+}
+
+void swap(int *a, int *b)
+
+{
+
+ int temp = *b;
+
+ *b = *a;
+
+ *a = temp;
+
+}
+
+void insert(int array[], int newNum)
+
+{
+
+ if (size == 0)
+
+ {
+
+ array[0] = newNum;
+
+ size += 1;
+
+ }
+
+ else
+
+ {
+
+ array[size] = newNum;
+
+ size += 1;
+
+ for ( i = size / 2 - 1; i >= 0; i--)
+
+ {
+
+ heapify(array, size, i);
+
+ }
+
+ }
+
+}
+
+void deleteRoot(int array[])
+
+{
+
+ if(size ==0)
+
+ printf("\ntree not found");
+
+ else{
+
+ swap(&array[0],&array[size -1]);
+
+ size -= 1;
+
+
+ printf("\nAfter deleting the minimum element:");
+
+ for (i =0; i <=size / 2 - 1; i++)
+
+ {
+
+ heapify(array, size, i);
+
+ }
+
+ }
+
+}
+
+
+void printArray(int array[], int size)
+
+{
+
+ for ( i = 0; i < size; ++i)
+
+ printf("%d ", array[i]);
+
+ printf("\n");
+
+}
+
+
+int main()
+
+{
+
+ int ch,i,n; int num;int array[100];
+
+ printf("TO CREATE A BASIC HEAP");
+
+ printf("\nEnter number of elements:");
+ scanf("%d",&n);
+ printf("\nEnter the elements:");
+
+ for(i=0;i<n;i++)
+
+ {
+
+ scanf("%d", &num);
+
+ insert(array, num);
+
+ }
+
+ printArray(array, size);
+
+
+
+while(1) {
+
+printf("BASIC OPERATIONS OF HEAP");
+
+printf("\n1.Insert \n2.Delete \n3.Display\n4.Exit ");
+
+printf("\nEnter your choice :");
+
+scanf("%d",&ch);
+
+
+
+switch(ch)
+
+{
+
+case 1:
+
+ printf("Enter the element :");
+
+ scanf("%d",&num);
+
+ insert(array, num);
+
+ printArray(array, size);
+
+ break;
+
+case 2: deleteRoot(array);
+
+printArray(array, size);
+
+break;
+
+case 3:
+
+printArray(array, size);
+
+break;
+
+case 4:exit(0);
+
+default: printf("\n Wrong choice");
+
+}
+
+}
+
+}
+
+
